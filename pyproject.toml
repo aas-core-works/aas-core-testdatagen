@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aas-core-testdatagen"
+# NOTE (mristin):
+# Do not forget to sync with __init__.py!
+version = "0.0.1"
+
+description = "Generate test data for AAS elements based on the meta-model."
+readme = "README.rst"
+requires-python = ">=3.10"
+
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+
+authors = [
+  { name = "Marko Ristin", email = "marko@ristin.ch" }
+]
+
+dependencies = [
+  "icontract>=2,<3",
+  "aas-core-codegen==0.0.17",
+  "typing-extensions==4.15.0"
+]
+
+[project.scripts]
+"aas-core-testdatagen" = "aas_core_testdatagen.main:entry_point"
+
+[project.urls]
+repository = "https://github.com/aas-core-works/aas-core-testdatagen"
+
+[tool.setuptools.packages.find]
+include = ["aas_core_testdatagen"]
+exclude = ["dev"]

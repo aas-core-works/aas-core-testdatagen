@@ -1,0 +1,13 @@
+{
+  "valueTypeListElement": "xs:boolean",
+  "typeValueListElement": "Property",
+  "idShort": "someList",
+  "value": [
+    {
+      "idShort": "something",
+      "valueType": "xs:boolean",
+      "modelType": "Property"
+    }
+  ],
+  "modelType": "SubmodelElementList"
+}
