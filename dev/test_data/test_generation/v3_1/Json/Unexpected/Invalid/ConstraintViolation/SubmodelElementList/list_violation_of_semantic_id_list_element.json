@@ -1,0 +1,43 @@
+{
+  "valueTypeListElement": "xs:boolean",
+  "typeValueListElement": "Property",
+  "semanticIdListElement": {
+    "type": "ExternalReference",
+    "keys": [
+      {
+        "type": "GlobalReference",
+        "value": "urn:yet-another-company:10:245e0e92"
+      }
+    ]
+  },
+  "idShort": "someList",
+  "value": [
+    {
+      "valueType": "xs:boolean",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "something-very-different-from-the-expected"
+          }
+        ]
+      },
+      "modelType": "Property"
+    },
+    {
+      "valueType": "xs:boolean",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:yet-another-company:10:245e0e92"
+          }
+        ]
+      },
+      "modelType": "Property"
+    }
+  ],
+  "modelType": "SubmodelElementList"
+}

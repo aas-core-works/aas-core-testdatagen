@@ -1,0 +1,11 @@
+<submodelElementList xmlns="https://admin-shell.io/aas/3/1">
+  <valueTypeListElement>xs:boolean</valueTypeListElement>
+  <typeValueListElement>Property</typeValueListElement>
+  <idShort>someList</idShort>
+  <value>
+    <property>
+      <idShort>something</idShort>
+      <valueType>xs:boolean</valueType>
+    </property>
+  </value>
+</submodelElementList>
