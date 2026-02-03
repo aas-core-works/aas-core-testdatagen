@@ -134,6 +134,16 @@ To avoid problems with non-deterministic sampling of random strings which satisf
 You run this script and then freeze the patterns by placing them in appropriate places in ``aas_core_testdatagen/frozen_examples/pattern.py``.
 Make sure that you do not introduce duplicates.
 
+Minor Meta-model Updates
+------------------------
+When a new meta-model file is released, you should run ``dev/dev_scripts/update_all.py`` with the appropriate parameters to update the test data in this repository.
+For the indicated version of the meta-model in the parameters, this script will download the latest meta-model file, re-generate the test data as well as verify it for correctness with a Python SDK.
+
+Once the test data are re-generated in this repository, create a branch and merge it into the main branch.
+
+After the changes are merged, make a new release.
+The archive with the test data (one for each meta-model version) will be automatically attached to the release files.
+
 Coding Style Guide
 ==================
 Typing

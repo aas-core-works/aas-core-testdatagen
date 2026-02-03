@@ -501,7 +501,7 @@ def main() -> int:
         action="store_true",
         help=(
             "Cache the parsed meta-model to temporary directory "
-            "(dependent on your OS) for faster reuse."
+            "(dependent on your OS) for faster reuse"
         ),
     )
     args = parser.parse_args()

@@ -1,13 +1,19 @@
 """Generate test data for AAS elements based on the meta-model."""
 
 import argparse
+import hashlib
 import itertools
 import pathlib
+import pickle
 import sys
-from typing import TextIO
+import tempfile
+import uuid
+from typing import TextIO, Tuple, Optional
 
 import aas_core_codegen.infer_for_schema
+import aas_core_codegen.intermediate
 import aas_core_codegen.run
+from icontract import ensure
 
 import aas_core_testdatagen
 from aas_core_testdatagen import generation, verification, jsoning, xmling
@@ -17,29 +23,149 @@ from aas_core_testdatagen.v3_1 import generation as v3_1_generation
 assert aas_core_testdatagen.__doc__ == __doc__
 
 
+@ensure(lambda result: (result[0] is not None) ^ (result[1] is not None))
+def _load_meta_model(
+    meta_model_path: pathlib.Path,
+) -> Tuple[Optional[aas_core_codegen.intermediate.SymbolTable], Optional[str]]:
+    """
+    Load and parse the symbol table from the disk.
+
+    Return the symbol table, or an error, if any.
+    """
+    symbol_table_atok, error = aas_core_codegen.run.load_model(meta_model_path)
+    if error is not None:
+        return None, error
+
+    assert symbol_table_atok is not None
+    symbol_table, _ = symbol_table_atok
+
+    return symbol_table, None
+
+
+@ensure(lambda result: (result[0] is not None) ^ (result[1] is not None))
+def _load_or_cache_meta_model(
+    meta_model_path: pathlib.Path,
+) -> Tuple[Optional[aas_core_codegen.intermediate.SymbolTable], Optional[str]]:
+    """
+    Use the system temp directory to manage the caching of the symbol table.
+
+    Return the symbol table, or an error, if any.
+    """
+    symbol_table: Optional[aas_core_codegen.intermediate.SymbolTable] = None
+
+    hasher = hashlib.sha256()
+    hasher.update(meta_model_path.read_bytes())
+    meta_model_hash_hexdigest = hasher.hexdigest()
+
+    this_path = pathlib.Path(__file__).resolve()
+
+    cached_symbol_table_path = (
+        pathlib.Path(tempfile.gettempdir())
+        / f"aas-core-testdatagen-{this_path.parent.name}-{this_path.stem}"
+        / f"symbol_table-{meta_model_hash_hexdigest}.pickle"
+    )
+
+    if not cached_symbol_table_path.exists():
+        # NOTE (mristin):
+        # We include the hash of the content in the file name, so the parsed symbol
+        # table will correspond to the source.
+
+        symbol_table, error = _load_meta_model(meta_model_path=meta_model_path)
+        if error is not None:
+            return None, error
+
+        assert symbol_table is not None
+
+        try:
+            cached_symbol_table_path.parent.mkdir(exist_ok=True, parents=True)
+        except Exception as exception:
+            return None, (
+                f"Failed to create the cache directory {cached_symbol_table_path}: "
+                f"{exception}"
+            )
+
+        # NOTE (mristin):
+        # We assume here a non-distributed filesystem where the renames in the
+        # same directory are atomic.
+
+        tmp_path = (
+            cached_symbol_table_path.parent
+            / f"{cached_symbol_table_path.name}-{uuid.uuid4()}.tmp"
+        )
+        try:
+            with tmp_path.open("wb") as fid:
+                # noinspection PyTypeChecker
+                pickle.dump(symbol_table, fid)
+
+            tmp_path.rename(cached_symbol_table_path)
+        except Exception as exception:
+            return None, f"Failed to pickle the meta-model to {tmp_path}: {exception}"
+        finally:
+            tmp_path.unlink(missing_ok=True)
+
+    else:
+        try:
+            with cached_symbol_table_path.open("rb") as fid:
+                symbol_table = pickle.load(fid)
+        except Exception as exception:
+            return None, (
+                f"Failed to load the cached symbol table "
+                f"from {cached_symbol_table_path}: {exception}"
+            )
+
+        if not isinstance(symbol_table, aas_core_codegen.intermediate.SymbolTable):
+            symbol_table_qualname = (
+                aas_core_codegen.intermediate.SymbolTable.__qualname__
+            )
+            return None, (
+                f"Expected a {symbol_table_qualname} "
+                f"from {cached_symbol_table_path}, "
+                f"but got {symbol_table}"
+            )
+
+    return symbol_table, None
+
+
 def execute(
-    model_path: pathlib.Path, output_dir: pathlib.Path, stdout: TextIO, stderr: TextIO
+    meta_model_path: pathlib.Path,
+    output_dir: pathlib.Path,
+    cache_meta_model: bool,
+    stdout: TextIO,
+    stderr: TextIO,
 ) -> int:
     """
     Execute the test case generation.
 
     Return the exit code.
     """
-    if not model_path.exists():
-        print(f"The --model_path does not exist: {model_path}", file=stderr)
+    if not meta_model_path.exists():
+        print(f"The --model_path does not exist: {meta_model_path}", file=stderr)
         return 1
 
-    if not model_path.is_file():
-        print(f"The --model_path is not a file: {model_path}", file=stderr)
+    if not meta_model_path.is_file():
+        print(f"The --model_path is not a file: {meta_model_path}", file=stderr)
         return 1
 
-    symbol_table_atok, error = aas_core_codegen.run.load_model(model_path)
-    if error is not None:
-        print("The --model_path could not be parsed: {error}", file=stderr)
+    if cache_meta_model:
+        print(
+            f"Loading the meta-model from {meta_model_path} "
+            f"or from the temporary directory if already cached..."
+        )
+        symbol_table, load_error = _load_or_cache_meta_model(
+            meta_model_path=meta_model_path
+        )
+    else:
+        print(f"Loading the meta-model from {meta_model_path} ...")
+        symbol_table, load_error = _load_meta_model(meta_model_path=meta_model_path)
+
+    if load_error is not None:
+        print(
+            f"Failed to load the meta-model from {meta_model_path}: {load_error}",
+            file=sys.stderr,
+        )
         return 1
 
-    assert symbol_table_atok is not None
-    symbol_table, _ = symbol_table_atok
+    assert symbol_table is not None
 
     constraints_by_class, inference_errors = (
         aas_core_codegen.infer_for_schema.infer_constraints_by_class(
@@ -81,6 +207,7 @@ def execute(
         )
         return 1
 
+    file_count = 0
     for output in itertools.chain(
         jsoning.generate_test_data(case_generator),
         xmling.generate_test_data(case_generator),
@@ -93,7 +220,9 @@ def execute(
             fid.write(output.text)
             fid.write("\n")
 
-        print(f"Written to: {path}", file=stdout)
+        file_count += 1
+
+    print(f"Written {file_count} file(s) to {output_dir}.", file=stdout)
 
     return 0
 
@@ -107,12 +236,20 @@ def main(prog: str) -> int:
     """
     parser = argparse.ArgumentParser(prog=prog, description=__doc__)
     parser.add_argument(
-        "--model_path", help="path to the AAS meta-model", required=True
+        "--meta_model_path", help="path to the AAS meta-model", required=True
     )
     parser.add_argument(
         "--output_dir",
         help="path to the directory where test data is stored",
         required=True,
+    )
+    parser.add_argument(
+        "--cache_meta_model",
+        action="store_true",
+        help=(
+            "Cache the parsed meta-model to temporary directory "
+            "(dependent on your OS) for faster reuse"
+        ),
     )
     parser.add_argument(
         "--version", help="show the current version and exit", action="store_true"
@@ -127,12 +264,14 @@ def main(prog: str) -> int:
 
     args = parser.parse_args()
 
-    model_path = pathlib.Path(args.model_path)
+    meta_model_path = pathlib.Path(args.meta_model_path)
     output_dir = pathlib.Path(args.output_dir)
+    cache_meta_model = bool(args.cache_meta_model)
 
     return execute(
-        model_path=model_path,
+        meta_model_path=meta_model_path,
         output_dir=output_dir,
+        cache_meta_model=cache_meta_model,
         stdout=sys.stdout,
         stderr=sys.stderr,
     )

@@ -6,7 +6,6 @@ import difflib
 import hashlib
 import itertools
 import json
-import os
 import pathlib
 import pickle
 import tempfile
@@ -29,14 +28,6 @@ from aas_core_testdatagen import (
 )
 from aas_core_testdatagen.common import bullet_points
 from aas_core_testdatagen.v3_1 import generation as v3_1_generation
-
-#: If set, this environment variable indicates that the golden files should be
-#: re-recorded instead of checked against.
-RERECORD = os.environ.get("AAS_CORE_TESTDATAGEN_RERECORD", "").lower() in (
-    "1",
-    "true",
-    "on",
-)
 
 _REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
 
@@ -269,14 +260,11 @@ class TestAgainstRecorded(unittest.TestCase):
                 )
 
             with contextlib.ExitStack() as exit_stack:
-                if RERECORD:
-                    output_dir = golden_dir
-                else:
-                    # pylint: disable=consider-using-with
-                    temporary_directory = tempfile.TemporaryDirectory()
-                    exit_stack.push(temporary_directory)
+                # pylint: disable=consider-using-with
+                temporary_directory = tempfile.TemporaryDirectory()
+                exit_stack.push(temporary_directory)
 
-                    output_dir = pathlib.Path(temporary_directory.name)
+                output_dir = pathlib.Path(temporary_directory.name)
 
                 for output in itertools.chain(
                     jsoning.generate_test_data(case_generator),
@@ -290,62 +278,61 @@ class TestAgainstRecorded(unittest.TestCase):
                         fid.write(output.text)
                         fid.write("\n")
 
-                if not RERECORD:
-                    output_file_set = set()  # type: Set[pathlib.Path]
-                    golden_file_set = set()  # type: Set[pathlib.Path]
+                output_file_set = set()  # type: Set[pathlib.Path]
+                golden_file_set = set()  # type: Set[pathlib.Path]
 
-                    for output_file in output_dir.rglob("*"):
-                        if output_file.is_file():
-                            output_file_set.add(output_file.relative_to(output_dir))
+                for output_file in output_dir.rglob("*"):
+                    if output_file.is_file():
+                        output_file_set.add(output_file.relative_to(output_dir))
 
-                    for golden_file in golden_dir.rglob("*"):
-                        if golden_file.is_file():
-                            golden_file_set.add(golden_file.relative_to(golden_dir))
+                for golden_file in golden_dir.rglob("*"):
+                    if golden_file.is_file():
+                        golden_file_set.add(golden_file.relative_to(golden_dir))
 
-                    missing_in_output = golden_file_set - output_file_set
-                    missing_in_golden = output_file_set - golden_file_set
+                missing_in_output = golden_file_set - output_file_set
+                missing_in_golden = output_file_set - golden_file_set
 
-                    if len(missing_in_output) > 0:
-                        missing_in_output_joined = "\n".join(
-                            str(path) for path in sorted(missing_in_output)
+                if len(missing_in_output) > 0:
+                    missing_in_output_joined = "\n".join(
+                        str(path) for path in sorted(missing_in_output)
+                    )
+                    raise AssertionError(
+                        f"One or more files missing in the generated output:\n"
+                        f"{missing_in_output_joined}"
+                    )
+
+                if len(missing_in_golden) > 0:
+                    missing_in_golden_joined = "\n".join(
+                        str(path) for path in sorted(missing_in_golden)
+                    )
+                    raise AssertionError(
+                        f"Unexpected one or more additional files in generated output:\n"
+                        f"{missing_in_golden_joined}"
+                    )
+
+                for rel_path in sorted(output_file_set):
+                    output_file = output_dir / rel_path
+                    golden_file = golden_dir / rel_path
+
+                    with open(output_file, "r", encoding="utf-8") as f:
+                        output_content = f.readlines()
+
+                    with open(golden_file, "r", encoding="utf-8") as f:
+                        golden_content = f.readlines()
+
+                    if output_content != golden_content:
+                        diff = difflib.unified_diff(
+                            golden_content,
+                            output_content,
+                            fromfile="golden",
+                            tofile="generated",
+                            lineterm="",
                         )
+                        diff_text = "\n".join(diff)
                         raise AssertionError(
-                            f"One or more files missing in the generated output:\n"
-                            f"{missing_in_output_joined}"
+                            f"Unexpected content mismatch for file {rel_path}:\n"
+                            f"{diff_text}"
                         )
-
-                    if len(missing_in_golden) > 0:
-                        missing_in_golden_joined = "\n".join(
-                            str(path) for path in sorted(missing_in_golden)
-                        )
-                        raise AssertionError(
-                            f"Unexpected one or more additional files in generated output:\n"
-                            f"{missing_in_golden_joined}"
-                        )
-
-                    for rel_path in sorted(output_file_set):
-                        output_file = output_dir / rel_path
-                        golden_file = golden_dir / rel_path
-
-                        with open(output_file, "r", encoding="utf-8") as f:
-                            output_content = f.readlines()
-
-                        with open(golden_file, "r", encoding="utf-8") as f:
-                            golden_content = f.readlines()
-
-                        if output_content != golden_content:
-                            diff = difflib.unified_diff(
-                                golden_content,
-                                output_content,
-                                fromfile="golden",
-                                tofile="generated",
-                                lineterm="",
-                            )
-                            diff_text = "\n".join(diff)
-                            raise AssertionError(
-                                f"Unexpected content mismatch for file {rel_path}:\n"
-                                f"{diff_text}"
-                            )
 
 
 if __name__ == "__main__":
