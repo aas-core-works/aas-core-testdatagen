@@ -36,7 +36,7 @@ Install the dependencies:
 
     pip3 install .
 
-You can now run ``aas-core3.1-testdatagen`` (see ``--help`` section below).
+You can now run ``aas-core-testdatagen`` (see ``--help`` section below).
 
 ``--help``
 ==========
@@ -44,17 +44,20 @@ You can now run ``aas-core3.1-testdatagen`` (see ``--help`` section below).
 .. Help starts: aas-core-testdatagen --help
 .. code-block::
 
-    usage: aas-core-testdatagen [-h] --model_path MODEL_PATH --output_dir
-                                OUTPUT_DIR [--version]
+    usage: aas-core-testdatagen [-h] --meta_model_path META_MODEL_PATH
+                                --output_dir OUTPUT_DIR [--cache_meta_model]
+                                [--version]
 
     Generate test data for AAS elements based on the meta-model.
 
     options:
       -h, --help            show this help message and exit
-      --model_path MODEL_PATH
+      --meta_model_path META_MODEL_PATH
                             path to the AAS meta-model
       --output_dir OUTPUT_DIR
                             path to the directory where test data is stored
+      --cache_meta_model    Cache the parsed meta-model to temporary directory
+                            (dependent on your OS) for faster reuse
       --version             show the current version and exit
 
 .. Help ends: aas-core-testdatagen --help

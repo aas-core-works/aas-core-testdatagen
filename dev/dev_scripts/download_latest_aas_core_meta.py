@@ -9,21 +9,20 @@ from typing import Final, Mapping, Union
 import black
 import requests
 
-OWNER: Final[str] = "aas-core-works"
-REPO: Final[str] = "aas-core-meta"
-REF: Final[str] = "main"
-REMOTE_PATH: Final[str] = "aas_core_meta/v3_1.py"
+_OWNER: Final[str] = "aas-core-works"
+_REPO: Final[str] = "aas-core-meta"
+_REF: Final[str] = "main"
 
 
-def _latest_commit_sha(timeout: float = 15.0) -> str:
+def _latest_commit_sha(remote_path: str, timeout: float = 15.0) -> str:
     """Resolve the latest commit SHA on the ``REF`` for a specific path."""
     params: Mapping[str, Union[str, int]] = {
-        "path": REMOTE_PATH,
-        "sha": REF,
+        "path": remote_path,
+        "sha": _REF,
         "per_page": 1,
     }
     resp = requests.get(
-        f"https://api.github.com/repos/{OWNER}/{REPO}/commits",
+        f"https://api.github.com/repos/{_OWNER}/{_REPO}/commits",
         params=params,
         timeout=timeout,
     )
@@ -32,7 +31,7 @@ def _latest_commit_sha(timeout: float = 15.0) -> str:
     except requests.HTTPError as ex:
         raise RuntimeError(
             f"Failed to resolve latest commit for "
-            f"{OWNER}/{REPO}:{REF} path={REMOTE_PATH} "
+            f"{_OWNER}/{_REPO}:{_REF} path={remote_path} "
             f"({resp.status_code}): {resp.text}"
         ) from ex
 
@@ -52,9 +51,9 @@ def _latest_commit_sha(timeout: float = 15.0) -> str:
     return sha
 
 
-def _raw_url(sha: str) -> str:
+def _raw_url(sha: str, remote_path: str) -> str:
     """Get the URL of the raw file on GitHub."""
-    return f"https://raw.githubusercontent.com/{OWNER}/{REPO}/{sha}/{REMOTE_PATH}"
+    return f"https://raw.githubusercontent.com/{_OWNER}/{_REPO}/{sha}/{remote_path}"
 
 
 def _download(url: str, timeout: float = 30.0) -> str:
@@ -70,23 +69,35 @@ def _download(url: str, timeout: float = 30.0) -> str:
     return resp.text
 
 
-def retrieve_sha_and_download() -> str:
-    """
-    Get the latest SHA revision of the meta-model and download it to test data.
+def main() -> int:
+    """Execute the main routine."""
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--meta_model_version",
+        help="Version of the meta-model which we want to update (*e.g.*, '3.1')",
+        required=True,
+    )
+    args = parser.parse_args()
 
-    Return the SHA of the downloaded meta-model.
-    """
-    sha = _latest_commit_sha()
+    meta_model_version = str(args.meta_model_version)
 
-    raw_url = _raw_url(sha)
+    meta_model_version_in_paths = meta_model_version.replace(".", "_")
+
+    meta_model_filename = f"v{meta_model_version_in_paths}.py"
+
+    remote_path = f"aas_core_meta/{meta_model_filename}"
+
+    sha = _latest_commit_sha(remote_path=remote_path)
+
+    raw_url = _raw_url(sha=sha, remote_path=remote_path)
 
     content = _download(url=raw_url)
 
     banner = f"# Downloaded from: {raw_url}\n# Do NOT edit or append!"
 
-    repo_root = pathlib.Path(os.path.realpath(__file__)).parent.parent
+    repo_root = pathlib.Path(os.path.realpath(__file__)).parent.parent.parent
 
-    out_path = repo_root / "dev/test_data/meta_model/v3_1.py"
+    out_path = repo_root / "dev/test_data/meta_model" / meta_model_filename
     out_path.parent.mkdir(exist_ok=True)
 
     out_path.write_text(f"{banner}\n\n{content.rstrip()}\n\n{banner}", encoding="utf-8")
@@ -95,17 +106,7 @@ def retrieve_sha_and_download() -> str:
         src=out_path, fast=False, mode=black.FileMode(), write_back=black.WriteBack.YES
     )
 
-    print(f"Wrote and reformatted to: {out_path} (from commit {sha[:8]}).")
-
-    return sha
-
-
-def main() -> int:
-    """Execute the main routine."""
-    parser = argparse.ArgumentParser(description=__doc__)
-    _ = parser.parse_args()
-
-    retrieve_sha_and_download()
+    print(f"Downloaded and reformatted to: {out_path} (from commit {sha[:8]}).")
 
     return 0
 
