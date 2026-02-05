@@ -42,9 +42,7 @@ def main() -> int:
             for root, _, files in os.walk(meta_model_dir):
                 for file in files:
                     file_path = pathlib.Path(root) / file
-                    path_in_archive = pathlib.Path("test_data") / file_path.relative_to(
-                        meta_model_dir
-                    )
+                    path_in_archive = file_path.relative_to(meta_model_dir)
                     zip_file.write(file_path, path_in_archive)
 
         print(f"Created {output_path}.")
