@@ -1,6 +1,4 @@
 {
-  "value": "---01",
-  "valueType": "xs:gDay",
   "semanticId": {
     "type": "ExternalReference",
     "keys": [
@@ -13,6 +11,8 @@
   "supplementalSemanticIds": "Unexpected string value",
   "kind": "ValueQualifier",
   "type": "6",
+  "valueType": "xs:gDay",
+  "value": "---01",
   "valueId": {
     "type": "ExternalReference",
     "keys": [

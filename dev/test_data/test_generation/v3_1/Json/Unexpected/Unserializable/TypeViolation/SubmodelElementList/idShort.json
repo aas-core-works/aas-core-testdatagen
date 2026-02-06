@@ -1,52 +1,4 @@
 {
-  "valueTypeListElement": "xs:boolean",
-  "typeValueListElement": "Property",
-  "semanticIdListElement": {
-    "type": "ExternalReference",
-    "keys": [
-      {
-        "type": "GlobalReference",
-        "value": "urn:yet-another-company:10:245e0e92"
-      }
-    ]
-  },
-  "idShort": {
-    "type": "ExternalReference",
-    "keys": [
-      {
-        "type": "GlobalReference",
-        "value": "unexpected reference"
-      }
-    ]
-  },
-  "value": [
-    {
-      "valueType": "xs:boolean",
-      "semanticId": {
-        "type": "ExternalReference",
-        "keys": [
-          {
-            "type": "GlobalReference",
-            "value": "urn:yet-another-company:10:245e0e92"
-          }
-        ]
-      },
-      "modelType": "Property"
-    },
-    {
-      "valueType": "xs:boolean",
-      "semanticId": {
-        "type": "ExternalReference",
-        "keys": [
-          {
-            "type": "GlobalReference",
-            "value": "urn:yet-another-company:10:245e0e92"
-          }
-        ]
-      },
-      "modelType": "Property"
-    }
-  ],
   "extensions": [
     {
       "name": "11\u00d5\u00d1\ud803\udee8\u00b4K\udbca\udf2de<\udb45\uddde\u00a8ngA"
@@ -56,6 +8,15 @@
     }
   ],
   "category": "something_564bf7d4",
+  "idShort": {
+    "type": "ExternalReference",
+    "keys": [
+      {
+        "type": "GlobalReference",
+        "value": "unexpected reference"
+      }
+    ]
+  },
   "displayName": [
     {
       "language": "en-JM-x-99426152",
@@ -183,5 +144,44 @@
     }
   ],
   "orderRelevant": false,
+  "semanticIdListElement": {
+    "type": "ExternalReference",
+    "keys": [
+      {
+        "type": "GlobalReference",
+        "value": "urn:yet-another-company:10:245e0e92"
+      }
+    ]
+  },
+  "typeValueListElement": "Property",
+  "valueTypeListElement": "xs:boolean",
+  "value": [
+    {
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:yet-another-company:10:245e0e92"
+          }
+        ]
+      },
+      "valueType": "xs:boolean",
+      "modelType": "Property"
+    },
+    {
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "value": "urn:yet-another-company:10:245e0e92"
+          }
+        ]
+      },
+      "valueType": "xs:boolean",
+      "modelType": "Property"
+    }
+  ],
   "modelType": "SubmodelElementList"
 }

@@ -1,31 +1,4 @@
 {
-  "direction": "output",
-  "observed": {
-    "type": "ModelReference",
-    "keys": [
-      {
-        "type": "Submodel",
-        "value": "urn:yet-another-company:02:3262900a"
-      },
-      {
-        "type": "Property",
-        "value": "something0e5ec53f"
-      }
-    ]
-  },
-  "messageBroker": {
-    "type": "ModelReference",
-    "keys": [
-      {
-        "type": "Submodel",
-        "value": "urn:example:13:931c2029"
-      },
-      {
-        "type": "Property",
-        "value": "something839c2657"
-      }
-    ]
-  },
   "extensions": [
     {
       "name": "11\u00d5\u00d1\ud803\udee8\u00b4K\udbca\udf2de<\udb45\uddde\u00a8ngA"
@@ -154,8 +127,35 @@
       }
     }
   ],
+  "observed": {
+    "type": "ModelReference",
+    "keys": [
+      {
+        "type": "Submodel",
+        "value": "urn:yet-another-company:02:3262900a"
+      },
+      {
+        "type": "Property",
+        "value": "something0e5ec53f"
+      }
+    ]
+  },
+  "direction": "output",
   "state": "on",
   "messageTopic": "\ud842\udd224\ud842\udd22",
+  "messageBroker": {
+    "type": "ModelReference",
+    "keys": [
+      {
+        "type": "Submodel",
+        "value": "urn:example:13:931c2029"
+      },
+      {
+        "type": "Property",
+        "value": "something839c2657"
+      }
+    ]
+  },
   "lastUpdate": "0001-01-01T00:00:00Z",
   "minInterval": "-P11DT142M",
   "maxInterval": "PT18688M",

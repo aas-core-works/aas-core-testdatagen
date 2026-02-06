@@ -1,6 +1,4 @@
 {
-  "value": "---01",
-  "valueType": "xs:gDay",
   "semanticId": {
     "type": "ExternalReference",
     "keys": [
@@ -49,6 +47,8 @@
       }
     ]
   },
+  "valueType": "xs:gDay",
+  "value": "---01",
   "valueId": {
     "type": "ExternalReference",
     "keys": [

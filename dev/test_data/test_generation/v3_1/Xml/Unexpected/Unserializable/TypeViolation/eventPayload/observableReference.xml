@@ -12,8 +12,6 @@
       </key>
     </keys>
   </source>
-  <observableReference>Unexpected string value</observableReference>
-  <timeStamp>2022-04-01T24:00:00-00:00</timeStamp>
   <sourceSemanticId>
     <type>ExternalReference</type>
     <keys>
@@ -23,6 +21,7 @@
       </key>
     </keys>
   </sourceSemanticId>
+  <observableReference>Unexpected string value</observableReference>
   <observableSemanticId>
     <type>ExternalReference</type>
     <keys>
@@ -42,5 +41,6 @@
       </key>
     </keys>
   </subjectId>
+  <timeStamp>2022-04-01T24:00:00-00:00</timeStamp>
   <payload>/TsF2AbyQb1dIa0=</payload>
 </eventPayload>

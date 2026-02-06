@@ -207,6 +207,8 @@ def execute(
         )
         return 1
 
+    print("Generating the cases...", file=stdout)
+
     file_count = 0
     for output in itertools.chain(
         jsoning.generate_test_data(case_generator),

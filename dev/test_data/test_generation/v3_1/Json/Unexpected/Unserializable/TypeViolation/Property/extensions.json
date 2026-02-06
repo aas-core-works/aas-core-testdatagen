@@ -1,6 +1,4 @@
 {
-  "value": "---01",
-  "valueType": "xs:gDay",
   "extensions": "Unexpected string value",
   "category": "something_564bf7d4",
   "idShort": "something_f7b01b30",
@@ -130,6 +128,8 @@
       }
     }
   ],
+  "valueType": "xs:gDay",
+  "value": "---01",
   "valueId": {
     "type": "ExternalReference",
     "keys": [

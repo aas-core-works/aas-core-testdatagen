@@ -2,6 +2,7 @@
 
 import base64
 import collections
+import itertools
 import json
 import pathlib
 from typing import Any, Optional, Tuple, MutableMapping, List, Iterator, Union
@@ -9,7 +10,7 @@ from typing import Any, Optional, Tuple, MutableMapping, List, Iterator, Union
 import aas_core_codegen.common
 import aas_core_codegen.naming
 from aas_core_codegen import intermediate
-from aas_core_codegen.common import assert_never
+from aas_core_codegen.common import assert_never, Identifier
 from icontract import ensure, require, invariant
 
 from aas_core_testdatagen import preseria, casing, generation, seria, common
@@ -52,7 +53,29 @@ def serialize(
     elif isinstance(value, preseria.ImmutableInstance):
         result: MutableMapping[str, Any] = collections.OrderedDict([])
 
-        for prop_name, prop_value in value.properties.items():
+        maybe_cls = symbol_table.find_our_type(name=value.class_name)
+
+        expected_property_order: Iterator[Identifier]
+
+        if maybe_cls is not None and isinstance(maybe_cls, intermediate.Class):
+            expected_property_order = itertools.chain(
+                (
+                    prop.name
+                    for prop in maybe_cls.properties
+                    if prop.name in value.properties
+                ),
+                (
+                    prop_name
+                    for prop_name in value.properties
+                    if prop_name not in maybe_cls.properties_by_name
+                ),
+            )
+        else:
+            expected_property_order = iter(value.properties.keys())
+
+        for prop_name in expected_property_order:
+            prop_value = value.properties[prop_name]
+
             if aas_core_codegen.common.IDENTIFIER_RE.fullmatch(prop_name) is not None:
                 prop_name_json = aas_core_codegen.naming.json_property(
                     aas_core_codegen.common.Identifier(prop_name)
@@ -74,7 +97,6 @@ def serialize(
 
             result[prop_name_json] = prop_value_json
 
-        maybe_cls = symbol_table.find_our_type(name=value.class_name)
         if maybe_cls is None or not isinstance(maybe_cls, intermediate.ConcreteClass):
             result["modelType"] = value.class_name
         else:

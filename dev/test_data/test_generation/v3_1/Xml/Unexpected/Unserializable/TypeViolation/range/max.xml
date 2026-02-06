@@ -1,15 +1,4 @@
 <range xmlns="https://admin-shell.io/aas/3/1">
-  <min>---01+02:00</min>
-  <max>
-    <type>ExternalReference</type>
-    <keys>
-      <key>
-        <type>GlobalReference</type>
-        <value>unexpected reference</value>
-      </key>
-    </keys>
-  </max>
-  <valueType>xs:gDay</valueType>
   <extensions>
     <extension>
       <name>11ÕÑ𐻨´K􂬭e&lt;󡗞¨ngA</name>
@@ -148,4 +137,15 @@
       </dataSpecificationContent>
     </embeddedDataSpecification>
   </embeddedDataSpecifications>
+  <valueType>xs:gDay</valueType>
+  <min>---01+02:00</min>
+  <max>
+    <type>ExternalReference</type>
+    <keys>
+      <key>
+        <type>GlobalReference</type>
+        <value>unexpected reference</value>
+      </key>
+    </keys>
+  </max>
 </range>

@@ -12,22 +12,21 @@
       }
     ]
   },
-  "observableReference": {
-    "type": "ModelReference",
-    "keys": [
-      {
-        "type": "Submodel",
-        "value": "urn:something:13:06d93ead"
-      }
-    ]
-  },
-  "timeStamp": "2022-04-01T24:00:00-00:00",
   "sourceSemanticId": {
     "type": "ExternalReference",
     "keys": [
       {
         "type": "GlobalReference",
         "value": "urn:an-example:12:1ed44768"
+      }
+    ]
+  },
+  "observableReference": {
+    "type": "ModelReference",
+    "keys": [
+      {
+        "type": "Submodel",
+        "value": "urn:something:13:06d93ead"
       }
     ]
   },
@@ -42,5 +41,6 @@
   },
   "topic": "\u00f6\u0116a\udbf6\udce1\u0099|",
   "subjectId": "Unexpected string value",
+  "timeStamp": "2022-04-01T24:00:00-00:00",
   "payload": "/TsF2AbyQb1dIa0="
 }

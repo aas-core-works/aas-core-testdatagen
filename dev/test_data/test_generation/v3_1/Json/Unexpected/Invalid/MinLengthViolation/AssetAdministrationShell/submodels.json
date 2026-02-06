@@ -1,14 +1,4 @@
 {
-  "derivedFrom": {
-    "type": "ModelReference",
-    "keys": [
-      {
-        "type": "AssetAdministrationShell",
-        "value": "urn:some-company:05:3dfe70e9"
-      }
-    ]
-  },
-  "submodels": [],
   "extensions": [
     {
       "name": "11\u00d5\u00d1\ud803\udee8\u00b4K\udbca\udf2de<\udb45\uddde\u00a8ngA"
@@ -95,9 +85,19 @@
       }
     }
   ],
-  "assetInformation": {
-    "globalAssetId": "\u00f6\u0116a\udbf6\udce1\u0099|",
-    "assetKind": "Type"
+  "derivedFrom": {
+    "type": "ModelReference",
+    "keys": [
+      {
+        "type": "AssetAdministrationShell",
+        "value": "urn:some-company:05:3dfe70e9"
+      }
+    ]
   },
+  "assetInformation": {
+    "assetKind": "Type",
+    "globalAssetId": "\u00f6\u0116a\udbf6\udce1\u0099|"
+  },
+  "submodels": [],
   "modelType": "AssetAdministrationShell"
 }

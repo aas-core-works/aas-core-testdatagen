@@ -3,6 +3,7 @@
 import base64
 import enum
 import io
+import itertools
 import pathlib
 import re
 import xml.sax.saxutils
@@ -309,7 +310,18 @@ def _serialize_instance_as_sequence(
 ) -> None:
     cls = symbol_table.must_find_concrete_class(instance.class_name)
 
-    for prop_name, prop_value in instance.properties.items():
+    expected_property_order = itertools.chain(
+        (prop.name for prop in cls.properties if prop.name in instance.properties),
+        (
+            prop_name
+            for prop_name in instance.properties
+            if prop_name not in cls.properties_by_name
+        ),
+    )
+
+    for prop_name in expected_property_order:
+        prop_value = instance.properties[prop_name]
+
         if isinstance(prop_value, preseria.PrimitiveValueTuple):
             _serialize_primitive_property(
                 xmlizer=xmlizer, name=prop_name, value=prop_value

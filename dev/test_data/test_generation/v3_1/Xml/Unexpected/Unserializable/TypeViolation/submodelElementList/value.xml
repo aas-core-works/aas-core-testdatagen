@@ -1,17 +1,4 @@
 <submodelElementList xmlns="https://admin-shell.io/aas/3/1">
-  <valueTypeListElement>xs:boolean</valueTypeListElement>
-  <typeValueListElement>Property</typeValueListElement>
-  <semanticIdListElement>
-    <type>ExternalReference</type>
-    <keys>
-      <key>
-        <type>GlobalReference</type>
-        <value>urn:yet-another-company:10:245e0e92</value>
-      </key>
-    </keys>
-  </semanticIdListElement>
-  <idShort>someList</idShort>
-  <value>Unexpected string value</value>
   <extensions>
     <extension>
       <name>11ÕÑ𐻨´K􂬭e&lt;󡗞¨ngA</name>
@@ -21,6 +8,7 @@
     </extension>
   </extensions>
   <category>something_564bf7d4</category>
+  <idShort>someList</idShort>
   <displayName>
     <langStringNameType>
       <language>en-JM-x-99426152</language>
@@ -150,4 +138,16 @@
     </embeddedDataSpecification>
   </embeddedDataSpecifications>
   <orderRelevant>false</orderRelevant>
+  <semanticIdListElement>
+    <type>ExternalReference</type>
+    <keys>
+      <key>
+        <type>GlobalReference</type>
+        <value>urn:yet-another-company:10:245e0e92</value>
+      </key>
+    </keys>
+  </semanticIdListElement>
+  <typeValueListElement>Property</typeValueListElement>
+  <valueTypeListElement>xs:boolean</valueTypeListElement>
+  <value>Unexpected string value</value>
 </submodelElementList>

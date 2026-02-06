@@ -1,25 +1,4 @@
 {
-  "derivedFrom": "Unexpected string value",
-  "submodels": [
-    {
-      "type": "ModelReference",
-      "keys": [
-        {
-          "type": "Submodel",
-          "value": "urn:some-company:10:b41a9a96"
-        }
-      ]
-    },
-    {
-      "type": "ModelReference",
-      "keys": [
-        {
-          "type": "Submodel",
-          "value": "urn:some-company:08:ebc5356c"
-        }
-      ]
-    }
-  ],
   "extensions": [
     {
       "name": "11\u00d5\u00d1\ud803\udee8\u00b4K\udbca\udf2de<\udb45\uddde\u00a8ngA"
@@ -106,9 +85,30 @@
       }
     }
   ],
+  "derivedFrom": "Unexpected string value",
   "assetInformation": {
-    "globalAssetId": "\u00f6\u0116a\udbf6\udce1\u0099|",
-    "assetKind": "Type"
+    "assetKind": "Type",
+    "globalAssetId": "\u00f6\u0116a\udbf6\udce1\u0099|"
   },
+  "submodels": [
+    {
+      "type": "ModelReference",
+      "keys": [
+        {
+          "type": "Submodel",
+          "value": "urn:some-company:10:b41a9a96"
+        }
+      ]
+    },
+    {
+      "type": "ModelReference",
+      "keys": [
+        {
+          "type": "Submodel",
+          "value": "urn:some-company:08:ebc5356c"
+        }
+      ]
+    }
+  ],
   "modelType": "AssetAdministrationShell"
 }

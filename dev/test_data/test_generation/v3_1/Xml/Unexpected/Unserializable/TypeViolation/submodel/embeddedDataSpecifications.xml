@@ -87,8 +87,8 @@
   <embeddedDataSpecifications>Unexpected string value</embeddedDataSpecifications>
   <submodelElements>
     <property>
-      <valueType>xs:long</valueType>
       <idShort>somethingb873bd6b</idShort>
+      <valueType>xs:long</valueType>
     </property>
     <annotatedRelationshipElement>
       <idShort>something8fecda82</idShort>

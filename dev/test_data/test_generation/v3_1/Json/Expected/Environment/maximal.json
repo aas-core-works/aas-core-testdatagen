@@ -3,16 +3,16 @@
     {
       "id": "something_142922d6",
       "assetInformation": {
-        "globalAssetId": "J5",
-        "assetKind": "Role"
+        "assetKind": "Role",
+        "globalAssetId": "J5"
       },
       "modelType": "AssetAdministrationShell"
     },
     {
       "id": "something_77c436c4",
       "assetInformation": {
-        "globalAssetId": "\uda51\udc4cM\ud86a\udc07\ud82d\udd0a\ud9c8\udd32",
-        "assetKind": "Type"
+        "assetKind": "Type",
+        "globalAssetId": "\uda51\udc4cM\ud86a\udc07\ud82d\udd0a\ud9c8\udd32"
       },
       "modelType": "AssetAdministrationShell"
     }

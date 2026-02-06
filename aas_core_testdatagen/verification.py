@@ -498,6 +498,9 @@ def check_structural_constraints(
             )
             continue
 
+    # NOTE (mristin):
+    # We then check the structural constraints.
+
     constraints_by_prop = constraints_by_class[cls]
 
     for prop_name, prop_value in instance.properties.items():

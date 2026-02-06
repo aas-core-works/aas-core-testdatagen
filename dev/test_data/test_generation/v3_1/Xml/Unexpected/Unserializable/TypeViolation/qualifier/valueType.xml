@@ -1,14 +1,4 @@
 <qualifier xmlns="https://admin-shell.io/aas/3/1">
-  <value>---01</value>
-  <valueType>
-    <type>ExternalReference</type>
-    <keys>
-      <key>
-        <type>GlobalReference</type>
-        <value>unexpected reference</value>
-      </key>
-    </keys>
-  </valueType>
   <semanticId>
     <type>ExternalReference</type>
     <keys>
@@ -49,6 +39,16 @@
   </supplementalSemanticIds>
   <kind>ValueQualifier</kind>
   <type>6</type>
+  <valueType>
+    <type>ExternalReference</type>
+    <keys>
+      <key>
+        <type>GlobalReference</type>
+        <value>unexpected reference</value>
+      </key>
+    </keys>
+  </valueType>
+  <value>---01</value>
   <valueId>
     <type>ExternalReference</type>
     <keys>

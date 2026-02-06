@@ -12,6 +12,7 @@
       }
     ]
   },
+  "sourceSemanticId": "Unexpected string value",
   "observableReference": {
     "type": "ModelReference",
     "keys": [
@@ -21,8 +22,6 @@
       }
     ]
   },
-  "timeStamp": "2022-04-01T24:00:00-00:00",
-  "sourceSemanticId": "Unexpected string value",
   "observableSemanticId": {
     "type": "ExternalReference",
     "keys": [
@@ -42,5 +41,6 @@
       }
     ]
   },
+  "timeStamp": "2022-04-01T24:00:00-00:00",
   "payload": "/TsF2AbyQb1dIa0="
 }

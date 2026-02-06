@@ -8,12 +8,6 @@
       </key>
     </keys>
   </type>
-  <keys>
-    <key>
-      <type>GlobalReference</type>
-      <value>urn:example:10:6914e6d2</value>
-    </key>
-  </keys>
   <referredSemanticId>
     <type>ExternalReference</type>
     <keys>
@@ -23,4 +17,10 @@
       </key>
     </keys>
   </referredSemanticId>
+  <keys>
+    <key>
+      <type>GlobalReference</type>
+      <value>urn:example:10:6914e6d2</value>
+    </key>
+  </keys>
 </reference>

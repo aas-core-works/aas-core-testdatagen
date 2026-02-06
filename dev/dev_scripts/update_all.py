@@ -3,9 +3,10 @@
 import argparse
 import os
 import pathlib
-import shutil
 import subprocess
 import sys
+
+import dev_scripts.regenerate_test_data
 
 
 def main() -> int:
@@ -13,9 +14,10 @@ def main() -> int:
     this_dir = pathlib.Path(os.path.realpath(__file__)).parent
     repo_root = this_dir.parent.parent
 
-    default_meta_model_version = "3.1"
-
-    default_sdk_path = repo_root.parent / f"aas-core{default_meta_model_version}-python"
+    default_sdk_path = (
+        repo_root.parent
+        / f"aas-core{dev_scripts.common.DEFAULT_META_MODEL_VERSION}-python"
+    )
 
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter
@@ -23,7 +25,7 @@ def main() -> int:
     parser.add_argument(
         "--meta_model_version",
         help="Version of the meta-model which we want to update",
-        default=default_meta_model_version,
+        default=dev_scripts.common.DEFAULT_META_MODEL_VERSION,
     )
     parser.add_argument(
         "--sdk_path",
@@ -45,44 +47,21 @@ def main() -> int:
         ]
     )
 
-    meta_model_version_in_paths = meta_model_version.replace(".", "_")
-    golden_dir = (
-        repo_root
-        / "dev"
-        / "test_data"
-        / "test_generation"
-        / f"v{meta_model_version_in_paths}"
-    )
-
-    if golden_dir.exists():
-        print(f"Deleting {golden_dir} to re-create it...")
-        shutil.rmtree(golden_dir)
-
-    golden_dir.mkdir(parents=True)
-
-    meta_model_path = (
-        repo_root
-        / "dev"
-        / "test_data"
-        / "meta_model"
-        / f"v{meta_model_version_in_paths}.py"
-    )
-
-    print(
-        f"Generating the new golden test data "
-        f"based on {meta_model_path} to {golden_dir}..."
-    )
     subprocess.check_call(
         [
             sys.executable,
-            "-m",
-            "aas_core_testdatagen",
-            "--meta_model_path",
-            str(meta_model_path),
-            "--output_dir",
-            str(golden_dir),
-            "--cache_meta_model",
+            str(this_dir / "regenerate_test_data.py"),
+            "--meta_model_version",
+            meta_model_version,
         ]
+    )
+
+    golden_dir = dev_scripts.regenerate_test_data.construct_golden_dir(
+        meta_model_version=meta_model_version
+    )
+
+    meta_model_path = dev_scripts.regenerate_test_data.construct_meta_model_path(
+        meta_model_version=meta_model_version
     )
 
     print(f"Verifying the data in {golden_dir} with the SDK from {sdk_path} ...")

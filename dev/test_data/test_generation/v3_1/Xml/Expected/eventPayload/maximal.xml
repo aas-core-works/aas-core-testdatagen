@@ -12,16 +12,6 @@
       </key>
     </keys>
   </source>
-  <observableReference>
-    <type>ModelReference</type>
-    <keys>
-      <key>
-        <type>Submodel</type>
-        <value>urn:something:13:06d93ead</value>
-      </key>
-    </keys>
-  </observableReference>
-  <timeStamp>2022-04-01T24:00:00-00:00</timeStamp>
   <sourceSemanticId>
     <type>ExternalReference</type>
     <keys>
@@ -31,6 +21,15 @@
       </key>
     </keys>
   </sourceSemanticId>
+  <observableReference>
+    <type>ModelReference</type>
+    <keys>
+      <key>
+        <type>Submodel</type>
+        <value>urn:something:13:06d93ead</value>
+      </key>
+    </keys>
+  </observableReference>
   <observableSemanticId>
     <type>ExternalReference</type>
     <keys>
@@ -50,5 +49,6 @@
       </key>
     </keys>
   </subjectId>
+  <timeStamp>2022-04-01T24:00:00-00:00</timeStamp>
   <payload>/TsF2AbyQb1dIa0=</payload>
 </eventPayload>

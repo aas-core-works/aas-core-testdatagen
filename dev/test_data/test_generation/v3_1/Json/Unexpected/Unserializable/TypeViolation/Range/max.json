@@ -1,15 +1,4 @@
 {
-  "min": "---01+02:00",
-  "max": {
-    "type": "ExternalReference",
-    "keys": [
-      {
-        "type": "GlobalReference",
-        "value": "unexpected reference"
-      }
-    ]
-  },
-  "valueType": "xs:gDay",
   "extensions": [
     {
       "name": "11\u00d5\u00d1\ud803\udee8\u00b4K\udbca\udf2de<\udb45\uddde\u00a8ngA"
@@ -146,5 +135,16 @@
       }
     }
   ],
+  "valueType": "xs:gDay",
+  "min": "---01+02:00",
+  "max": {
+    "type": "ExternalReference",
+    "keys": [
+      {
+        "type": "GlobalReference",
+        "value": "unexpected reference"
+      }
+    ]
+  },
   "modelType": "Range"
 }

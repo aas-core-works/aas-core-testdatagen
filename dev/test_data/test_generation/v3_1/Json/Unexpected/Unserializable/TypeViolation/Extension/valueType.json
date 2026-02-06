@@ -1,14 +1,4 @@
 {
-  "value": "---01",
-  "valueType": {
-    "type": "ExternalReference",
-    "keys": [
-      {
-        "type": "GlobalReference",
-        "value": "unexpected reference"
-      }
-    ]
-  },
   "semanticId": {
     "type": "ExternalReference",
     "keys": [
@@ -48,6 +38,16 @@
     }
   ],
   "name": "\u00db\u0103<P\udb63\udc7d\u00b2|dn\u009c\u00de\u00ae",
+  "valueType": {
+    "type": "ExternalReference",
+    "keys": [
+      {
+        "type": "GlobalReference",
+        "value": "unexpected reference"
+      }
+    ]
+  },
+  "value": "---01",
   "refersTo": [
     {
       "type": "ExternalReference",

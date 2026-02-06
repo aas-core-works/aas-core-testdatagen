@@ -1,6 +1,4 @@
 <property xmlns="https://admin-shell.io/aas/3/1">
-  <value>---01</value>
-  <valueType>xs:gDay</valueType>
   <extensions>Unexpected string value</extensions>
   <category>something_564bf7d4</category>
   <idShort>something_f7b01b30</idShort>
@@ -132,6 +130,8 @@
       </dataSpecificationContent>
     </embeddedDataSpecification>
   </embeddedDataSpecifications>
+  <valueType>xs:gDay</valueType>
+  <value>---01</value>
   <valueId>
     <type>ExternalReference</type>
     <keys>
