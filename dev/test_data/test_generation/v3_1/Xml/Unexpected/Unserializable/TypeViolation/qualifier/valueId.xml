@@ -1,6 +1,4 @@
 <qualifier xmlns="https://admin-shell.io/aas/3/1">
-  <value>---01</value>
-  <valueType>xs:gDay</valueType>
   <semanticId>
     <type>ExternalReference</type>
     <keys>
@@ -41,5 +39,7 @@
   </supplementalSemanticIds>
   <kind>ValueQualifier</kind>
   <type>6</type>
+  <valueType>xs:gDay</valueType>
+  <value>---01</value>
   <valueId>Unexpected string value</valueId>
 </qualifier>

@@ -1,10 +1,9 @@
 {
-  "valueTypeListElement": "xs:boolean",
-  "typeValueListElement": "Property",
   "idShort": "someList",
+  "typeValueListElement": "Property",
+  "valueTypeListElement": "xs:boolean",
   "value": [
     {
-      "valueType": "xs:boolean",
       "semanticId": {
         "type": "ExternalReference",
         "keys": [
@@ -14,10 +13,10 @@
           }
         ]
       },
+      "valueType": "xs:boolean",
       "modelType": "Property"
     },
     {
-      "valueType": "xs:boolean",
       "semanticId": {
         "type": "ExternalReference",
         "keys": [
@@ -27,6 +26,7 @@
           }
         ]
       },
+      "valueType": "xs:boolean",
       "modelType": "Property"
     }
   ],

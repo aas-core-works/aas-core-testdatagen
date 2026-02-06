@@ -112,8 +112,8 @@
   ],
   "submodelElements": [
     {
-      "valueType": "xs:long",
       "idShort": "somethingb873bd6b",
+      "valueType": "xs:long",
       "modelType": "Property"
     },
     {

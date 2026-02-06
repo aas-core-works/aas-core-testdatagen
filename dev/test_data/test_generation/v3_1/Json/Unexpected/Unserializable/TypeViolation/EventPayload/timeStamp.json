@@ -12,30 +12,21 @@
       }
     ]
   },
-  "observableReference": {
-    "type": "ModelReference",
-    "keys": [
-      {
-        "type": "Submodel",
-        "value": "urn:something:13:06d93ead"
-      }
-    ]
-  },
-  "timeStamp": {
-    "type": "ExternalReference",
-    "keys": [
-      {
-        "type": "GlobalReference",
-        "value": "unexpected reference"
-      }
-    ]
-  },
   "sourceSemanticId": {
     "type": "ExternalReference",
     "keys": [
       {
         "type": "GlobalReference",
         "value": "urn:an-example:12:1ed44768"
+      }
+    ]
+  },
+  "observableReference": {
+    "type": "ModelReference",
+    "keys": [
+      {
+        "type": "Submodel",
+        "value": "urn:something:13:06d93ead"
       }
     ]
   },
@@ -55,6 +46,15 @@
       {
         "type": "GlobalReference",
         "value": "urn:yet-another-company:01:0e4f465d"
+      }
+    ]
+  },
+  "timeStamp": {
+    "type": "ExternalReference",
+    "keys": [
+      {
+        "type": "GlobalReference",
+        "value": "unexpected reference"
       }
     ]
   },

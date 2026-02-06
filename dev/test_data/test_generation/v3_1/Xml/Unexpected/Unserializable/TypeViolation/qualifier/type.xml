@@ -1,6 +1,4 @@
 <qualifier xmlns="https://admin-shell.io/aas/3/1">
-  <value>---01</value>
-  <valueType>xs:gDay</valueType>
   <semanticId>
     <type>ExternalReference</type>
     <keys>
@@ -49,6 +47,8 @@
       </key>
     </keys>
   </type>
+  <valueType>xs:gDay</valueType>
+  <value>---01</value>
   <valueId>
     <type>ExternalReference</type>
     <keys>

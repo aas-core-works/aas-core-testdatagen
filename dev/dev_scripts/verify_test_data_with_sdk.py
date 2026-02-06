@@ -9,6 +9,7 @@ an existing SDK.
 """
 
 import argparse
+import difflib
 import enum
 import hashlib
 import importlib.util
@@ -234,6 +235,28 @@ def _verify_json(
                 # We add the first line (':1') to make the output clickable in terminals
                 # which match for <file>:<line> pattern.
                 errors.append(f"{instance_path}:1:\n{verification_errors_joined}")
+                continue
+
+            another_jsonable = sdk.jsonization.to_jsonable(instance)
+
+            jsonable_normalized_str = json.dumps(jsonable, indent=2)
+            another_jsonable_normalized_str = json.dumps(another_jsonable, indent=2)
+
+            if jsonable_normalized_str != another_jsonable_normalized_str:
+                diff_lines = list(
+                    difflib.unified_diff(
+                        jsonable_normalized_str.splitlines(keepends=True),
+                        another_jsonable_normalized_str.splitlines(keepends=True),
+                        fromfile=str(instance_path),
+                        tofile=f"round-trip from {instance_path}",
+                        lineterm="",
+                    )
+                )
+
+                diff_str = "".join(diff_lines)
+                errors.append(
+                    f"{instance_path}:1: diff in JSON round-trip:\n{diff_str}"
+                )
                 continue
 
     unserializable_dir = json_dir / "Unexpected" / "Unserializable"
@@ -469,7 +492,7 @@ def main() -> int:
         "--meta_model_path",
         help=(
             "Path to the meta-model. If omitted, "
-            "<sdk_path>/dev_scripts/codegen/meta_model.py will be read."
+            "<sdk_path>/dev/dev_scripts/codegen/meta_model.py will be read."
         ),
     )
     parser.add_argument(
@@ -517,7 +540,7 @@ def main() -> int:
     meta_model_path = (
         pathlib.Path(args.meta_model_path)
         if args.meta_model_path is not None
-        else sdk_path / "dev_scripts" / "codegen" / "meta_model.py"
+        else sdk_path / "dev" / "dev_scripts" / "codegen" / "meta_model.py"
     )
     test_data_dir = pathlib.Path(args.test_data_dir)
     cache_meta_model = bool(args.cache_meta_model)

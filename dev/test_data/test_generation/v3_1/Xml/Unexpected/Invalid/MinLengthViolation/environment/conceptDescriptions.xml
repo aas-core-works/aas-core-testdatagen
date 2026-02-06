@@ -3,15 +3,15 @@
     <assetAdministrationShell>
       <id>something_142922d6</id>
       <assetInformation>
-        <globalAssetId>J5</globalAssetId>
         <assetKind>Role</assetKind>
+        <globalAssetId>J5</globalAssetId>
       </assetInformation>
     </assetAdministrationShell>
     <assetAdministrationShell>
       <id>something_77c436c4</id>
       <assetInformation>
-        <globalAssetId>򤑌M𪠇𛔊򂄲</globalAssetId>
         <assetKind>Type</assetKind>
+        <globalAssetId>򤑌M𪠇𛔊򂄲</globalAssetId>
       </assetInformation>
     </assetAdministrationShell>
   </assetAdministrationShells>

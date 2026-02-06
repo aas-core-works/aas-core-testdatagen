@@ -1460,6 +1460,7 @@ class CaseGeneratorForSchemaConstraints(CaseGenerator):
                                 constraints=property_constraints,
                             )
                         )
+
                 elif cls is self.symbol_table.must_find_concrete_class(
                     Identifier("Basic_event_element")
                 ):

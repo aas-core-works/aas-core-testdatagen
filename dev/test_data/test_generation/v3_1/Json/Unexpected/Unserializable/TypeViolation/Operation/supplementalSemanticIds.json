@@ -132,8 +132,8 @@
   "inoutputVariables": [
     {
       "value": {
-        "typeValueListElement": "SubmodelElementCollection",
         "idShort": "something732046d1",
+        "typeValueListElement": "SubmodelElementCollection",
         "modelType": "SubmodelElementList"
       }
     },

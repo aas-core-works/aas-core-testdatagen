@@ -1,31 +1,4 @@
 <basicEventElement xmlns="https://admin-shell.io/aas/3/1">
-  <direction>output</direction>
-  <observed>
-    <type>ModelReference</type>
-    <keys>
-      <key>
-        <type>Submodel</type>
-        <value>urn:yet-another-company:02:3262900a</value>
-      </key>
-      <key>
-        <type>Property</type>
-        <value>something0e5ec53f</value>
-      </key>
-    </keys>
-  </observed>
-  <messageBroker>
-    <type>ModelReference</type>
-    <keys>
-      <key>
-        <type>Submodel</type>
-        <value>urn:example:13:931c2029</value>
-      </key>
-      <key>
-        <type>Property</type>
-        <value>something839c2657</value>
-      </key>
-    </keys>
-  </messageBroker>
   <extensions>
     <extension>
       <name>11ÕÑ𐻨´K􂬭e&lt;󡗞¨ngA</name>
@@ -164,8 +137,35 @@
       </dataSpecificationContent>
     </embeddedDataSpecification>
   </embeddedDataSpecifications>
+  <observed>
+    <type>ModelReference</type>
+    <keys>
+      <key>
+        <type>Submodel</type>
+        <value>urn:yet-another-company:02:3262900a</value>
+      </key>
+      <key>
+        <type>Property</type>
+        <value>something0e5ec53f</value>
+      </key>
+    </keys>
+  </observed>
+  <direction>output</direction>
   <state>on</state>
   <messageTopic>𠤢4𠤢1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123</messageTopic>
+  <messageBroker>
+    <type>ModelReference</type>
+    <keys>
+      <key>
+        <type>Submodel</type>
+        <value>urn:example:13:931c2029</value>
+      </key>
+      <key>
+        <type>Property</type>
+        <value>something839c2657</value>
+      </key>
+    </keys>
+  </messageBroker>
   <lastUpdate>0001-01-01T00:00:00Z</lastUpdate>
   <minInterval>-P11DT142M</minInterval>
   <maxInterval>PT18688M</maxInterval>

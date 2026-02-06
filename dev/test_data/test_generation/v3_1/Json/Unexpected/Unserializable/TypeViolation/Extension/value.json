@@ -1,14 +1,4 @@
 {
-  "value": {
-    "type": "ExternalReference",
-    "keys": [
-      {
-        "type": "GlobalReference",
-        "value": "unexpected reference"
-      }
-    ]
-  },
-  "valueType": "xs:gDay",
   "semanticId": {
     "type": "ExternalReference",
     "keys": [
@@ -48,6 +38,16 @@
     }
   ],
   "name": "\u00db\u0103<P\udb63\udc7d\u00b2|dn\u009c\u00de\u00ae",
+  "valueType": "xs:gDay",
+  "value": {
+    "type": "ExternalReference",
+    "keys": [
+      {
+        "type": "GlobalReference",
+        "value": "unexpected reference"
+      }
+    ]
+  },
   "refersTo": [
     {
       "type": "ExternalReference",

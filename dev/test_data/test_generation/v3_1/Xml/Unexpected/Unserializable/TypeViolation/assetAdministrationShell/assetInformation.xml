@@ -1,33 +1,4 @@
 <assetAdministrationShell xmlns="https://admin-shell.io/aas/3/1">
-  <derivedFrom>
-    <type>ModelReference</type>
-    <keys>
-      <key>
-        <type>AssetAdministrationShell</type>
-        <value>urn:some-company:05:3dfe70e9</value>
-      </key>
-    </keys>
-  </derivedFrom>
-  <submodels>
-    <reference>
-      <type>ModelReference</type>
-      <keys>
-        <key>
-          <type>Submodel</type>
-          <value>urn:some-company:10:b41a9a96</value>
-        </key>
-      </keys>
-    </reference>
-    <reference>
-      <type>ModelReference</type>
-      <keys>
-        <key>
-          <type>Submodel</type>
-          <value>urn:some-company:08:ebc5356c</value>
-        </key>
-      </keys>
-    </reference>
-  </submodels>
   <extensions>
     <extension>
       <name>11ÕÑ𐻨´K􂬭e&lt;󡗞¨ngA</name>
@@ -116,5 +87,34 @@
       </dataSpecificationContent>
     </embeddedDataSpecification>
   </embeddedDataSpecifications>
+  <derivedFrom>
+    <type>ModelReference</type>
+    <keys>
+      <key>
+        <type>AssetAdministrationShell</type>
+        <value>urn:some-company:05:3dfe70e9</value>
+      </key>
+    </keys>
+  </derivedFrom>
   <assetInformation>Unexpected string value</assetInformation>
+  <submodels>
+    <reference>
+      <type>ModelReference</type>
+      <keys>
+        <key>
+          <type>Submodel</type>
+          <value>urn:some-company:10:b41a9a96</value>
+        </key>
+      </keys>
+    </reference>
+    <reference>
+      <type>ModelReference</type>
+      <keys>
+        <key>
+          <type>Submodel</type>
+          <value>urn:some-company:08:ebc5356c</value>
+        </key>
+      </keys>
+    </reference>
+  </submodels>
 </assetAdministrationShell>

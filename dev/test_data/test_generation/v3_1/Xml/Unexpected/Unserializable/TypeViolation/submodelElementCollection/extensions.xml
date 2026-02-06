@@ -135,6 +135,7 @@
       <idShort>something11e03ee7</idShort>
     </operation>
     <basicEventElement>
+      <idShort>somethinge32e9b9a</idShort>
       <observed>
         <type>ModelReference</type>
         <keys>
@@ -150,7 +151,6 @@
       </observed>
       <direction>output</direction>
       <state>off</state>
-      <idShort>somethinge32e9b9a</idShort>
     </basicEventElement>
   </value>
 </submodelElementCollection>

@@ -1,6 +1,4 @@
 <extension xmlns="https://admin-shell.io/aas/3/1">
-  <value>---01</value>
-  <valueType>xs:gDay</valueType>
   <semanticId>
     <type>ExternalReference</type>
     <keys>
@@ -40,6 +38,8 @@
     </reference>
   </supplementalSemanticIds>
   <name>Ûă&lt;P󨱽²|dnÞ®123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567</name>
+  <valueType>xs:gDay</valueType>
+  <value>---01</value>
   <refersTo>
     <reference>
       <type>ExternalReference</type>

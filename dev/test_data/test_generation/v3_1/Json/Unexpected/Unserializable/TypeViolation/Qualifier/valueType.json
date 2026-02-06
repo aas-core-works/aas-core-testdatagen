@@ -1,14 +1,4 @@
 {
-  "value": "---01",
-  "valueType": {
-    "type": "ExternalReference",
-    "keys": [
-      {
-        "type": "GlobalReference",
-        "value": "unexpected reference"
-      }
-    ]
-  },
   "semanticId": {
     "type": "ExternalReference",
     "keys": [
@@ -49,6 +39,16 @@
   ],
   "kind": "ValueQualifier",
   "type": "6",
+  "valueType": {
+    "type": "ExternalReference",
+    "keys": [
+      {
+        "type": "GlobalReference",
+        "value": "unexpected reference"
+      }
+    ]
+  },
+  "value": "---01",
   "valueId": {
     "type": "ExternalReference",
     "keys": [

@@ -113,6 +113,7 @@
       "modelType": "Operation"
     },
     {
+      "idShort": "somethinge32e9b9a",
       "observed": {
         "type": "ModelReference",
         "keys": [
@@ -128,7 +129,6 @@
       },
       "direction": "output",
       "state": "off",
-      "idShort": "somethinge32e9b9a",
       "modelType": "BasicEventElement"
     }
   ],

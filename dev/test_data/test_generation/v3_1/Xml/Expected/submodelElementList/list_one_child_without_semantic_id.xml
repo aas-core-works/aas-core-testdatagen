@@ -1,6 +1,5 @@
 <submodelElementList xmlns="https://admin-shell.io/aas/3/1">
-  <valueTypeListElement>xs:boolean</valueTypeListElement>
-  <typeValueListElement>Property</typeValueListElement>
+  <idShort>someList</idShort>
   <semanticIdListElement>
     <type>ExternalReference</type>
     <keys>
@@ -10,13 +9,13 @@
       </key>
     </keys>
   </semanticIdListElement>
-  <idShort>someList</idShort>
+  <typeValueListElement>Property</typeValueListElement>
+  <valueTypeListElement>xs:boolean</valueTypeListElement>
   <value>
     <property>
       <valueType>xs:boolean</valueType>
     </property>
     <property>
-      <valueType>xs:boolean</valueType>
       <semanticId>
         <type>ExternalReference</type>
         <keys>
@@ -26,6 +25,7 @@
           </key>
         </keys>
       </semanticId>
+      <valueType>xs:boolean</valueType>
     </property>
   </value>
 </submodelElementList>

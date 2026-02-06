@@ -1,6 +1,5 @@
 <reference xmlns="https://admin-shell.io/aas/3/1">
   <type>ExternalReference</type>
-  <keys />
   <referredSemanticId>
     <type>ExternalReference</type>
     <keys>
@@ -10,4 +9,5 @@
       </key>
     </keys>
   </referredSemanticId>
+  <keys />
 </reference>

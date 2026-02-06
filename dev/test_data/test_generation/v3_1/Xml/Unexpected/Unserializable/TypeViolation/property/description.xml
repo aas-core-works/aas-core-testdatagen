@@ -1,6 +1,4 @@
 <property xmlns="https://admin-shell.io/aas/3/1">
-  <value>---01</value>
-  <valueType>xs:gDay</valueType>
   <extensions>
     <extension>
       <name>11ÕÑ𐻨´K􂬭e&lt;󡗞¨ngA</name>
@@ -130,6 +128,8 @@
       </dataSpecificationContent>
     </embeddedDataSpecification>
   </embeddedDataSpecifications>
+  <valueType>xs:gDay</valueType>
+  <value>---01</value>
   <valueId>
     <type>ExternalReference</type>
     <keys>

@@ -1,14 +1,4 @@
 <assetAdministrationShell xmlns="https://admin-shell.io/aas/3/1">
-  <derivedFrom>
-    <type>ModelReference</type>
-    <keys>
-      <key>
-        <type>AssetAdministrationShell</type>
-        <value>urn:some-company:05:3dfe70e9</value>
-      </key>
-    </keys>
-  </derivedFrom>
-  <submodels />
   <extensions>
     <extension>
       <name>11ÕÑ𐻨´K􂬭e&lt;󡗞¨ngA</name>
@@ -97,8 +87,18 @@
       </dataSpecificationContent>
     </embeddedDataSpecification>
   </embeddedDataSpecifications>
+  <derivedFrom>
+    <type>ModelReference</type>
+    <keys>
+      <key>
+        <type>AssetAdministrationShell</type>
+        <value>urn:some-company:05:3dfe70e9</value>
+      </key>
+    </keys>
+  </derivedFrom>
   <assetInformation>
-    <globalAssetId>öĖa􍣡|</globalAssetId>
     <assetKind>Type</assetKind>
+    <globalAssetId>öĖa􍣡|</globalAssetId>
   </assetInformation>
+  <submodels />
 </assetAdministrationShell>

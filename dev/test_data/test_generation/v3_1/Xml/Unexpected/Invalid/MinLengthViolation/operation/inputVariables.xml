@@ -158,8 +158,8 @@
     <operationVariable>
       <value>
         <submodelElementList>
-          <typeValueListElement>SubmodelElementCollection</typeValueListElement>
           <idShort>something732046d1</idShort>
+          <typeValueListElement>SubmodelElementCollection</typeValueListElement>
         </submodelElementList>
       </value>
     </operationVariable>
