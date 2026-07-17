@@ -285,6 +285,21 @@ BY_PATTERN: Mapping[str, Examples] = collections.OrderedDict(
             Examples(
                 positives=collections.OrderedDict(
                     [
+                        # Minimal valid values
+                        (Filenameable("minimal_lower"), "aa"),
+                        (Filenameable("minimal_upper"), "AZ"),
+                        (Filenameable("minimal_digit"), "a0"),
+                        (Filenameable("minimal_underscore"), "a_"),
+                        # Hyphens are allowed only before the final character
+                        (Filenameable("single_internal_hyphen"), "a-b"),
+                        (Filenameable("many_internal_hyphens"), "a----------------b"),
+                        (Filenameable("hyphen_then_underscore"), "a-_"),
+                        (Filenameable("alternating_hyphen_underscore"), "a-_-_-_-_-_"),
+                        # Underscores may appear anywhere except at the beginning
+                        (Filenameable("many_underscores"), "a________________"),
+                        (Filenameable("ends_with_underscore"), "strange-name_"),
+                        (Filenameable("underscore_after_first"), "A_"),
+                        # Fuzzed
                         (Filenameable("fuzzed_01"), "fULCVpULCVq"),
                         (Filenameable("fuzzed_02"), "AopQejF"),
                         (Filenameable("fuzzed_03"), "Jk0k1414Di"),
