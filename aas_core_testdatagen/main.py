@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import itertools
+import os.path
 import pathlib
 import pickle
 import sys
@@ -19,6 +20,7 @@ import aas_core_testdatagen
 from aas_core_testdatagen import generation, verification, jsoning, xmling
 from aas_core_testdatagen.common import bullet_points
 from aas_core_testdatagen.v3_1 import generation as v3_1_generation
+from aas_core_testdatagen.v3_2 import generation as v3_2_generation
 
 assert aas_core_testdatagen.__doc__ == __doc__
 
@@ -199,10 +201,18 @@ def execute(
                 verificator=verificator
             )
         )
+    elif symbol_table.meta_model.version == "V3.2":
+        case_generator = v3_2_generation.CaseGenerator(
+            instance_generator=v3_2_generation.InstanceGenerator(
+                verificator=verificator
+            )
+        )
     else:
         print(
-            f"Unhandled meta-model version in --model_path: "
-            f"{symbol_table.meta_model.version}",
+            f"Unhandled meta-model version in {symbol_table.meta_model.version} "
+            f"from --model_path: {meta_model_path}. "
+            f"The meta-model logic in {os.path.realpath(__file__)} needs to be "
+            f"extended to handle this meta-model version.",
             file=stderr,
         )
         return 1

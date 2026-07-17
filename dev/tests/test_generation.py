@@ -28,6 +28,7 @@ from aas_core_testdatagen import (
 )
 from aas_core_testdatagen.common import bullet_points
 from aas_core_testdatagen.v3_1 import generation as v3_1_generation
+from aas_core_testdatagen.v3_2 import generation as v3_2_generation
 
 _REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
 
@@ -253,6 +254,12 @@ class TestAgainstRecorded(unittest.TestCase):
                         verificator=verificator
                     )
                 )
+            elif symbol_table.meta_model.version == "V3.2":
+                case_generator = v3_2_generation.CaseGenerator(
+                    instance_generator=v3_2_generation.InstanceGenerator(
+                        verificator=verificator
+                    )
+                )
             else:
                 raise NotImplementedError(
                     f"Unhandled meta-model version from {meta_model_path}: "
@@ -297,7 +304,8 @@ class TestAgainstRecorded(unittest.TestCase):
                         str(path) for path in sorted(missing_in_output)
                     )
                     raise AssertionError(
-                        f"One or more files missing in the generated output:\n"
+                        f"One or more files missing in the generated output "
+                        f"related to the meta-model {meta_model_path}:\n"
                         f"{missing_in_output_joined}"
                     )
 
