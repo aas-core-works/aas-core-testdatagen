@@ -7,30 +7,30 @@
       "name": "6"
     }
   ],
-  "category": "something_564bf7d4",
-  "idShort": "something_f7b01b30",
+  "category": "11\u00d5\u00d1\ud803\udee8\u00b4K\udbca\udf2de<\udb45\uddde\u00a8ngA",
+  "idShort": "nRdRe",
   "displayName": [
     {
       "language": "en-JM-x-99426152",
-      "text": "something_1f1aba5e"
+      "text": "[\\h$\ud90b\ude9f\u00ec\u00d6\u010b\u008a1\u00bf"
     },
     {
       "language": "en-JM-x-431996fc",
-      "text": "something_842eb766"
+      "text": "<\u0103<P\udb63\udc7d\u00b2|dn\u009c\u00de\u00ae"
     }
   ],
   "description": [
     {
       "language": "en-JM-x-7ca6ed73",
-      "text": "something_1febdc77"
+      "text": "\u00db\u0103<P\udb63\udc7d\u00b2|dn\u009c\u00de\u00ae"
     },
     {
       "language": "en-JM-x-588ccbcc",
-      "text": "something_216c8b1f"
+      "text": "\ud842\udd224\ud842\udd22"
     }
   ],
   "administration": "Unexpected string value",
-  "id": "something_cc37fb09",
+  "id": "0",
   "kind": "Instance",
   "semanticId": {
     "type": "ExternalReference",
@@ -99,15 +99,15 @@
         "preferredName": [
           {
             "language": "en-JM-x-87ce29ed",
-            "text": "something_a0038f62"
+            "text": "J5"
           },
           {
             "language": "en-JM-x-7c40ee17",
-            "text": "something_af9a6c53"
+            "text": "\u00db\u0103<P\udb63\udc7d\u00b2|dn\u009c\u00de\u00ae"
           },
           {
             "language": "en-JM-x-f49c2ad1",
-            "text": "something_f6979a88"
+            "text": "[\\h$\ud90b\ude9f\u00ec\u00d6\u010b\u008a1\u00bf"
           }
         ],
         "modelType": "DataSpecificationIec61360"
@@ -127,11 +127,11 @@
         "preferredName": [
           {
             "language": "en-JM-x-e705ce52",
-            "text": "something_99d084e7"
+            "text": "0"
           },
           {
             "language": "en-JM-x-27e497c3",
-            "text": "something_8c3c1fe2"
+            "text": "[\\h$\ud90b\ude9f\u00ec\u00d6\u010b\u008a1\u00bf"
           }
         ],
         "modelType": "DataSpecificationIec61360"

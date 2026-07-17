@@ -6,7 +6,6 @@ import io
 import pathlib
 import re
 from typing import (
-    MutableMapping,
     Tuple,
     Union,
     Protocol,
@@ -18,6 +17,7 @@ from typing import (
     Generic,
     overload,
     Final,
+    Mapping,
 )
 
 from aas_core_codegen.common import indent_but_first_line
@@ -32,7 +32,7 @@ def load_symbol_table_and_infer_constraints_for_schema(
     model_path: pathlib.Path,
 ) -> Tuple[
     intermediate.SymbolTable,
-    MutableMapping[intermediate.ClassUnion, infer_for_schema.ConstraintsByProperty],
+    Mapping[intermediate.ClassUnion, infer_for_schema.ConstraintsByValue],
 ]:
     """
     Load the symbol table from the meta-model and infer the schema constraints.
@@ -117,25 +117,6 @@ def load_symbol_table_and_infer_constraints_for_schema(
             message=f"Failed to infer the constraints for the schema "
             f"based on {model_path}",
             errors=[lineno_columner.error_message(error) for error in inference_errors],
-            stderr=writer,
-        )
-
-        raise RuntimeError(writer.getvalue())
-
-    assert constraints_by_class is not None
-    (
-        constraints_by_class,
-        merge_error,
-    ) = aas_core_codegen.infer_for_schema.merge_constraints_with_ancestors(
-        symbol_table=ir_symbol_table, constraints_by_class=constraints_by_class
-    )
-
-    if merge_error is not None:
-        writer = io.StringIO()
-        aas_core_codegen.run.write_error_report(
-            message=f"Failed to infer the constraints for the schema "
-            f"based on {model_path}",
-            errors=[lineno_columner.error_message(merge_error)],
             stderr=writer,
         )
 

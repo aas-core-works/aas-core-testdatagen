@@ -71,7 +71,7 @@ ReorganizedConstraintsByClass: TypeAlias = Mapping[
 
 def reorganize_schema_constraints_by_properties(
     constraints_by_class: Mapping[
-        intermediate.ClassUnion, infer_for_schema.ConstraintsByProperty
+        intermediate.ClassUnion, infer_for_schema.ConstraintsByValue
     ],
 ) -> ReorganizedConstraintsByClass:
     """
@@ -79,20 +79,32 @@ def reorganize_schema_constraints_by_properties(
 
     The structure of the aas-core-codegen infer_for_schema module is quite impractical
     for this module since it is a sparse representation of different constraints.
-    Instead, we re-organize the constraints by grouping them all by one property.
+    Instead, we re-organize the constraints by grouping them all by one property and
+    transforming them to values that we can directly use in the generation (for example,
+    translating enumeration literal objects to strings).
     """
     result: MutableMapping[
         intermediate.ClassUnion,
         MutableMapping[intermediate.Property, PropertyConstraints],
     ] = dict()
 
-    for cls, constraints_by_property in constraints_by_class.items():
+    for cls, constraints_by_value in constraints_by_class.items():
         result[cls] = {}
 
         for prop in cls.properties:
-            allowed_values: Optional[Sequence[preseria.PrimitiveValueUnion]] = None
-
             type_anno = intermediate.beneath_optional(prop.type_annotation)
+
+            constraints = constraints_by_value.get(type_anno, None)
+
+            if constraints is None:
+                result[cls][prop] = PropertyConstraints(
+                    len_constraint=None,
+                    patterns=[],
+                    allowed_values=None,
+                )
+                continue
+
+            allowed_values: Optional[Sequence[preseria.PrimitiveValueUnion]] = None
 
             is_primitive_type = intermediate.try_primitive_type(type_anno) is not None
 
@@ -107,33 +119,21 @@ def reorganize_schema_constraints_by_properties(
             )
 
             if is_primitive_type:
-                set_of_primitives = (
-                    constraints_by_property.set_of_primitives_by_property.get(
-                        prop, None
-                    )
-                )
-
-                if set_of_primitives is not None:
+                if constraints.set_of_primitives is not None:
                     allowed_values = [
                         (
                             bytes(literal.value)
                             if isinstance(literal.value, bytearray)
                             else literal.value
                         )
-                        for literal in set_of_primitives.literals
+                        for literal in constraints.set_of_primitives.literals
                     ]
 
             elif is_enum:
-                set_of_enumeration_literals = (
-                    constraints_by_property.set_of_enumeration_literals_by_property.get(
-                        prop, None
-                    )
-                )
-
-                if set_of_enumeration_literals is not None:
+                if constraints.set_of_enumeration_literals is not None:
                     allowed_values = [
                         literal.value
-                        for literal in set_of_enumeration_literals.literals
+                        for literal in constraints.set_of_enumeration_literals.literals
                     ]
                 else:
                     assert isinstance(
@@ -150,15 +150,15 @@ def reorganize_schema_constraints_by_properties(
                 pass
 
             result[cls][prop] = PropertyConstraints(
-                len_constraint=(
-                    constraints_by_property.len_constraints_by_property.get(prop, None)
+                len_constraint=(constraints.len_constraint),
+                patterns=(
+                    [
+                        pattern_constraint.pattern
+                        for pattern_constraint in constraints.patterns
+                    ]
+                    if constraints.patterns is not None
+                    else []
                 ),
-                patterns=[
-                    pattern_constraint.pattern
-                    for pattern_constraint in (
-                        constraints_by_property.patterns_by_property.get(prop, [])
-                    )
-                ],
                 allowed_values=allowed_values,
             )
 
@@ -258,6 +258,8 @@ assert all(
     primitive_type in _PRIMITIVE_TYPE_TO_PYTHON_TYPE
     for primitive_type in intermediate.PrimitiveType
 )
+
+
 # fmt: on
 
 

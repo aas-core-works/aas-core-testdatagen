@@ -647,7 +647,7 @@ BY_PATTERN: Mapping[str, Examples] = collections.OrderedDict(
 def assert_all_pattern_verification_functions_covered(
     symbol_table: intermediate.SymbolTable,
     constraints_by_class: Mapping[
-        intermediate.ClassUnion, infer_for_schema.ConstraintsByProperty
+        intermediate.ClassUnion, infer_for_schema.ConstraintsByValue
     ],
 ) -> None:
     """Assert that we have some pattern for each pattern verification function."""
@@ -674,15 +674,23 @@ def assert_all_pattern_verification_functions_covered(
             pattern_to_sources[verification.pattern].append(source)
 
     for cls, class_constraints in constraints_by_class.items():
-        for prop, constraints in class_constraints.patterns_by_property.items():
-            for constraint in constraints:
-                expected.add(constraint.pattern)
-                source = f"Inferred constraint on {cls.name}.{prop.name}"
+        for prop in cls.properties:
+            type_anno = intermediate.beneath_optional(prop.type_annotation)
 
-                if constraint.pattern not in pattern_to_sources:
-                    pattern_to_sources[constraint.pattern] = [source]
-                else:
-                    pattern_to_sources[constraint.pattern].append(source)
+            constraints = class_constraints.get(type_anno, None)
+
+            if constraints is None:
+                continue
+
+            if constraints.patterns is not None:
+                for constraint in constraints.patterns:
+                    expected.add(constraint.pattern)
+                    source = f"Inferred constraint on {cls.name}.{prop.name}"
+
+                    if constraint.pattern not in pattern_to_sources:
+                        pattern_to_sources[constraint.pattern] = [source]
+                    else:
+                        pattern_to_sources[constraint.pattern].append(source)
 
     covered = set(BY_PATTERN.keys())
 
